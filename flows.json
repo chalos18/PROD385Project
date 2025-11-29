@@ -2,16 +2,200 @@
     {
         "id": "d12867c082d92e22",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "MQTT flow",
         "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "7db4bfbd5162a7de",
+        "id": "4f7d529023a9b544",
+        "type": "tab",
+        "label": "Simple button",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3bdfb04da7eb1211",
+        "type": "mqtt-broker",
+        "name": "CheerLights MQTT",
+        "broker": "mqtt.cheerlights.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "2524c4111e58b72d",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": true,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "02daa27376c86de2",
+        "type": "mqtt-broker",
+        "name": "MQTT Server",
+        "broker": "3585e2dbfcd948449aec8ccf1eb8912d.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "2524c4111e58b72d",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1efc8608502718bf",
+        "type": "mqtt out",
+        "z": "d12867c082d92e22",
+        "name": "Publish Random",
+        "topic": "Random",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "02daa27376c86de2",
+        "x": 800,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "a3d3639bf4c33a5a",
+        "type": "debug",
+        "z": "d12867c082d92e22",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "4c1ec1e323d69b85",
+        "type": "mqtt in",
+        "z": "d12867c082d92e22",
+        "name": "Random",
+        "topic": "Random",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "02daa27376c86de2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 360,
+        "y": 560,
+        "wires": [
+            [
+                "4b6914082ba73228"
+            ]
+        ]
+    },
+    {
+        "id": "79fd18d85630bef5",
+        "type": "random",
+        "z": "d12867c082d92e22",
+        "name": "",
+        "low": 1,
+        "high": 10,
+        "inte": "true",
+        "property": "payload",
+        "x": 480,
+        "y": 760,
+        "wires": [
+            [
+                "a3d3639bf4c33a5a",
+                "1efc8608502718bf"
+            ]
+        ]
+    },
+    {
+        "id": "e50d5bb8cfe3f2f1",
         "type": "inject",
         "z": "d12867c082d92e22",
-        "name": "Hello world",
+        "d": true,
+        "name": "10 secs",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 760,
+        "wires": [
+            [
+                "79fd18d85630bef5"
+            ]
+        ]
+    },
+    {
+        "id": "0b1c1db9818c26f8",
+        "type": "inject",
+        "z": "d12867c082d92e22",
+        "name": "hello",
         "props": [
             {
                 "p": "payload"
@@ -22,29 +206,146 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "hello world",
+        "payload": "hello",
         "payloadType": "str",
-        "x": 780,
-        "y": 380,
+        "x": 350,
+        "y": 640,
         "wires": [
             [
-                "b49ee1eb3444bca5"
+                "1efc8608502718bf",
+                "a3d3639bf4c33a5a"
             ]
         ]
     },
     {
-        "id": "b49ee1eb3444bca5",
-        "type": "debug",
+        "id": "27ed318047856813",
+        "type": "change",
         "z": "d12867c082d92e22",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 960,
+        "name": "On",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 560,
+        "wires": [
+            [
+                "b06ae5387e2a559e"
+            ]
+        ]
+    },
+    {
+        "id": "4b6914082ba73228",
+        "type": "switch",
+        "z": "d12867c082d92e22",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "hello",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 560,
+        "wires": [
+            [
+                "27ed318047856813"
+            ]
+        ]
+    },
+    {
+        "id": "b06ae5387e2a559e",
+        "type": "rpi-gpio out",
+        "z": "d12867c082d92e22",
+        "name": "Green",
+        "pin": "18",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 850,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "7759f02567e2d76b",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 610,
+        "y": 320,
+        "wires": [
+            [
+                "686d0c9d71939d1c"
+            ]
+        ]
+    },
+    {
+        "id": "5b30264444e4fa60",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "686d0c9d71939d1c"
+            ]
+        ]
+    },
+    {
+        "id": "686d0c9d71939d1c",
+        "type": "rpi-gpio out",
+        "z": "4f7d529023a9b544",
+        "name": "Green",
+        "pin": "18",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 810,
         "y": 380,
         "wires": []
     }
