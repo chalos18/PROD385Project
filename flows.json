@@ -591,7 +591,7 @@
         "type": "mqtt in",
         "z": "1472062f49c017cb",
         "name": "Location",
-        "topic": "owntracks/project/09AB347D-FF08-4364-8703-2D01C7256570",
+        "topic": "owntracks/project/emu64xa",
         "qos": "0",
         "datatype": "auto-detect",
         "broker": "02daa27376c86de2",
@@ -603,7 +603,8 @@
         "y": 380,
         "wires": [
             [
-                "c6b554f83ddc6755"
+                "c6b554f83ddc6755",
+                "6a123941548f77c7"
             ]
         ]
     },
@@ -691,7 +692,6 @@
         "y": 380,
         "wires": [
             [
-                "ced7d8104a41a506",
                 "d57e3cacd9e8a0f0"
             ]
         ]
@@ -747,22 +747,6 @@
                 "e96373d6502d5db5"
             ]
         ]
-    },
-    {
-        "id": "ced7d8104a41a506",
-        "type": "debug",
-        "z": "1472062f49c017cb",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 360,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "c4232679c82d6b9b",
@@ -1155,5 +1139,21 @@
                 "3489278206f773a3"
             ]
         ]
+    },
+    {
+        "id": "6a123941548f77c7",
+        "type": "debug",
+        "z": "1472062f49c017cb",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 260,
+        "y": 280,
+        "wires": []
     }
 ]
