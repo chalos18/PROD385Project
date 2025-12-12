@@ -11,7 +11,7 @@
         "id": "4f7d529023a9b544",
         "type": "tab",
         "label": "Simple button",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -98,8 +98,8 @@
         "z": "d12867c082d92e22",
         "name": "Publish Random",
         "topic": "Random",
-        "qos": "",
-        "retain": "",
+        "qos": "2",
+        "retain": "true",
         "respTopic": "",
         "contentType": "",
         "userProps": "",
@@ -143,7 +143,8 @@
         "y": 560,
         "wires": [
             [
-                "4b6914082ba73228"
+                "4b6914082ba73228",
+                "fc69f87fe528e9bf"
             ]
         ]
     },
@@ -274,7 +275,7 @@
         "type": "rpi-gpio out",
         "z": "d12867c082d92e22",
         "name": "Green",
-        "pin": "18",
+        "pin": "17",
         "set": true,
         "level": "0",
         "freq": "",
@@ -282,6 +283,22 @@
         "bcm": true,
         "x": 850,
         "y": 560,
+        "wires": []
+    },
+    {
+        "id": "fc69f87fe528e9bf",
+        "type": "debug",
+        "z": "d12867c082d92e22",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 480,
         "wires": []
     },
     {
@@ -302,7 +319,7 @@
         "payload": "0",
         "payloadType": "str",
         "x": 610,
-        "y": 320,
+        "y": 340,
         "wires": [
             [
                 "686d0c9d71939d1c"
@@ -339,7 +356,7 @@
         "type": "rpi-gpio out",
         "z": "4f7d529023a9b544",
         "name": "Green",
-        "pin": "18",
+        "pin": "17",
         "set": true,
         "level": "0",
         "freq": "",
@@ -348,5 +365,200 @@
         "x": 810,
         "y": 380,
         "wires": []
+    },
+    {
+        "id": "8ffd363af4dad72e",
+        "type": "rpi-gpio out",
+        "z": "4f7d529023a9b544",
+        "name": "Green",
+        "pin": "27",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 810,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f6c9d16b45562a41",
+        "type": "rpi-gpio out",
+        "z": "4f7d529023a9b544",
+        "name": "Green",
+        "pin": "22",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 810,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7f10269306993530",
+        "type": "rpi-gpio out",
+        "z": "4f7d529023a9b544",
+        "name": "Green",
+        "pin": "23",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 810,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "e4867a87f959e4f3",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 610,
+        "y": 460,
+        "wires": [
+            [
+                "8ffd363af4dad72e"
+            ]
+        ]
+    },
+    {
+        "id": "f7089312749ca435",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "8ffd363af4dad72e"
+            ]
+        ]
+    },
+    {
+        "id": "36feb8cdae8deced",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "f6c9d16b45562a41"
+            ]
+        ]
+    },
+    {
+        "id": "6f93579f3cfb6450",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 610,
+        "y": 600,
+        "wires": [
+            [
+                "f6c9d16b45562a41"
+            ]
+        ]
+    },
+    {
+        "id": "e17b617f9dcb73e9",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 610,
+        "y": 660,
+        "wires": [
+            [
+                "7f10269306993530"
+            ]
+        ]
+    },
+    {
+        "id": "618a293a3be0e667",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 610,
+        "y": 700,
+        "wires": [
+            [
+                "7f10269306993530"
+            ]
+        ]
     }
 ]
