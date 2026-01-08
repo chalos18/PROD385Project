@@ -18,7 +18,7 @@
     {
         "id": "1472062f49c017cb",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Prototype",
         "disabled": false,
         "info": "",
         "env": []
@@ -115,8 +115,8 @@
         "z": "d12867c082d92e22",
         "name": "Publish Random",
         "topic": "Random",
-        "qos": "",
-        "retain": "",
+        "qos": "2",
+        "retain": "true",
         "respTopic": "",
         "contentType": "",
         "userProps": "",
@@ -161,7 +161,7 @@
         "wires": [
             [
                 "4b6914082ba73228",
-                "58fb878145802572"
+                "fc69f87fe528e9bf"
             ]
         ]
     },
@@ -292,7 +292,7 @@
         "type": "rpi-gpio out",
         "z": "d12867c082d92e22",
         "name": "Green",
-        "pin": "18",
+        "pin": "17",
         "set": true,
         "level": "0",
         "freq": "",
@@ -300,6 +300,22 @@
         "bcm": true,
         "x": 850,
         "y": 560,
+        "wires": []
+    },
+    {
+        "id": "fc69f87fe528e9bf",
+        "type": "debug",
+        "z": "d12867c082d92e22",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 480,
         "wires": []
     },
     {
@@ -336,7 +352,7 @@
         "payload": "0",
         "payloadType": "str",
         "x": 610,
-        "y": 320,
+        "y": 340,
         "wires": [
             [
                 "686d0c9d71939d1c"
@@ -373,7 +389,7 @@
         "type": "rpi-gpio out",
         "z": "4f7d529023a9b544",
         "name": "Green",
-        "pin": "18",
+        "pin": "17",
         "set": true,
         "level": "0",
         "freq": "",
@@ -384,11 +400,206 @@
         "wires": []
     },
     {
+        "id": "8ffd363af4dad72e",
+        "type": "rpi-gpio out",
+        "z": "4f7d529023a9b544",
+        "name": "Green",
+        "pin": "27",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 810,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f6c9d16b45562a41",
+        "type": "rpi-gpio out",
+        "z": "4f7d529023a9b544",
+        "name": "Green",
+        "pin": "22",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 810,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7f10269306993530",
+        "type": "rpi-gpio out",
+        "z": "4f7d529023a9b544",
+        "name": "Green",
+        "pin": "23",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 810,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "e4867a87f959e4f3",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 610,
+        "y": 460,
+        "wires": [
+            [
+                "8ffd363af4dad72e"
+            ]
+        ]
+    },
+    {
+        "id": "f7089312749ca435",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "8ffd363af4dad72e"
+            ]
+        ]
+    },
+    {
+        "id": "36feb8cdae8deced",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "f6c9d16b45562a41"
+            ]
+        ]
+    },
+    {
+        "id": "6f93579f3cfb6450",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 610,
+        "y": 600,
+        "wires": [
+            [
+                "f6c9d16b45562a41"
+            ]
+        ]
+    },
+    {
+        "id": "e17b617f9dcb73e9",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 610,
+        "y": 660,
+        "wires": [
+            [
+                "7f10269306993530"
+            ]
+        ]
+    },
+    {
+        "id": "618a293a3be0e667",
+        "type": "inject",
+        "z": "4f7d529023a9b544",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 610,
+        "y": 700,
+        "wires": [
+            [
+                "7f10269306993530"
+            ]
+        ]
+    },
+    {
         "id": "739b93a1f5886a06",
         "type": "mqtt in",
         "z": "1472062f49c017cb",
         "name": "Location",
-        "topic": "owntracks/project/09AB347D-FF08-4364-8703-2D01C7256570",
+        "topic": "owntracks/project/emu64xa",
         "qos": "0",
         "datatype": "auto-detect",
         "broker": "02daa27376c86de2",
@@ -396,29 +607,14 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 380,
-        "y": 320,
+        "x": 140,
+        "y": 380,
         "wires": [
             [
-                "c6b554f83ddc6755"
+                "c6b554f83ddc6755",
+                "6a123941548f77c7"
             ]
         ]
-    },
-    {
-        "id": "9b7d6ba1b24925e1",
-        "type": "debug",
-        "z": "1472062f49c017cb",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 240,
-        "wires": []
     },
     {
         "id": "d3d461f49fabeb05",
@@ -439,11 +635,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 930,
-        "y": 320,
+        "x": 910,
+        "y": 280,
         "wires": [
             [
-                "e96373d6502d5db5"
+                "e96373d6502d5db5",
+                "0516fe49272854c8"
             ]
         ]
     },
@@ -451,21 +648,21 @@
         "id": "92238b7630c59431",
         "type": "switch",
         "z": "1472062f49c017cb",
-        "name": "",
+        "name": "home",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
             {
                 "t": "eq",
-                "v": "hello",
+                "v": "home",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 770,
-        "y": 320,
+        "x": 690,
+        "y": 280,
         "wires": [
             [
                 "d3d461f49fabeb05"
@@ -477,14 +674,14 @@
         "type": "rpi-gpio out",
         "z": "1472062f49c017cb",
         "name": "Green",
-        "pin": "18",
+        "pin": "17",
         "set": true,
         "level": "0",
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 1090,
-        "y": 320,
+        "x": 1130,
+        "y": 280,
         "wires": []
     },
     {
@@ -492,24 +689,467 @@
         "type": "function",
         "z": "1472062f49c017cb",
         "name": "function 1",
-        "func": "msg.payload = msg.payload.inregions[0];\nif (msg.payload == \"home\"){\n    return msg;\n}\n",
+        "func": "msg.payload = msg.payload.inregions[0];\nif (msg.payload == \"home\"){\n    msg.location = \"home\"\n    return msg;\n}\nif (msg.payload == \"climbing\"){\n    msg.location = \"climbing\"\n    return msg;\n}\nif (msg.payload == \"work\"){\n    msg.location = \"work\"\n    return msg;\n}\nif (msg.payload == \"university\"){\n    msg.location = \"university\"\n    return msg;\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 320,
+        "x": 320,
+        "y": 380,
         "wires": [
             [
-                "92238b7630c59431",
-                "f594161c0dc1a8fc"
+                "d57e3cacd9e8a0f0"
             ]
         ]
     },
     {
-        "id": "f594161c0dc1a8fc",
+        "id": "0516fe49272854c8",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "Off",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 950,
+        "y": 340,
+        "wires": [
+            [
+                "cef3d607de55f15b"
+            ]
+        ]
+    },
+    {
+        "id": "cef3d607de55f15b",
+        "type": "delay",
+        "z": "1472062f49c017cb",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 340,
+        "wires": [
+            [
+                "e96373d6502d5db5"
+            ]
+        ]
+    },
+    {
+        "id": "c4232679c82d6b9b",
+        "type": "switch",
+        "z": "1472062f49c017cb",
+        "name": "climbing",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "climbing",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 400,
+        "wires": [
+            [
+                "c709852dcf1d29e1"
+            ]
+        ]
+    },
+    {
+        "id": "6134b0ad59b92093",
+        "type": "switch",
+        "z": "1472062f49c017cb",
+        "name": "work",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "work",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 520,
+        "wires": [
+            [
+                "7a66ef34aa4f1044"
+            ]
+        ]
+    },
+    {
+        "id": "ed734c96773404dc",
+        "type": "switch",
+        "z": "1472062f49c017cb",
+        "name": "university",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "university",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 640,
+        "wires": [
+            [
+                "82c38b81968b7bf6"
+            ]
+        ]
+    },
+    {
+        "id": "c709852dcf1d29e1",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "On",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 400,
+        "wires": [
+            [
+                "43ad51414b35aead",
+                "80eeb4ab0f008c99"
+            ]
+        ]
+    },
+    {
+        "id": "43ad51414b35aead",
+        "type": "rpi-gpio out",
+        "z": "1472062f49c017cb",
+        "name": "Green",
+        "pin": "27",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1130,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "7a66ef34aa4f1044",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "On",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 520,
+        "wires": [
+            [
+                "5d195852da2d23da",
+                "66b1b6d51e3b4b6d"
+            ]
+        ]
+    },
+    {
+        "id": "5d195852da2d23da",
+        "type": "rpi-gpio out",
+        "z": "1472062f49c017cb",
+        "name": "Green",
+        "pin": "22",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1130,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "82c38b81968b7bf6",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "On",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 640,
+        "wires": [
+            [
+                "3489278206f773a3",
+                "29b86a1580f04e17"
+            ]
+        ]
+    },
+    {
+        "id": "3489278206f773a3",
+        "type": "rpi-gpio out",
+        "z": "1472062f49c017cb",
+        "name": "Green",
+        "pin": "23",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1130,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "d57e3cacd9e8a0f0",
+        "type": "link out",
+        "z": "1472062f49c017cb",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "d55f6f66e484b96a"
+        ],
+        "x": 405,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d55f6f66e484b96a",
+        "type": "link in",
+        "z": "1472062f49c017cb",
+        "name": "link in 1",
+        "links": [
+            "d57e3cacd9e8a0f0"
+        ],
+        "x": 535,
+        "y": 460,
+        "wires": [
+            [
+                "92238b7630c59431",
+                "c4232679c82d6b9b",
+                "6134b0ad59b92093",
+                "ed734c96773404dc"
+            ]
+        ]
+    },
+    {
+        "id": "80eeb4ab0f008c99",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "Off",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 950,
+        "y": 460,
+        "wires": [
+            [
+                "97b0e5fc9d5952db"
+            ]
+        ]
+    },
+    {
+        "id": "97b0e5fc9d5952db",
+        "type": "delay",
+        "z": "1472062f49c017cb",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 460,
+        "wires": [
+            [
+                "43ad51414b35aead"
+            ]
+        ]
+    },
+    {
+        "id": "66b1b6d51e3b4b6d",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "Off",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 950,
+        "y": 580,
+        "wires": [
+            [
+                "eab4ec8d280561f7"
+            ]
+        ]
+    },
+    {
+        "id": "eab4ec8d280561f7",
+        "type": "delay",
+        "z": "1472062f49c017cb",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 580,
+        "wires": [
+            [
+                "5d195852da2d23da"
+            ]
+        ]
+    },
+    {
+        "id": "29b86a1580f04e17",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "Off",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 950,
+        "y": 700,
+        "wires": [
+            [
+                "17f32cdfac68f98a"
+            ]
+        ]
+    },
+    {
+        "id": "17f32cdfac68f98a",
+        "type": "delay",
+        "z": "1472062f49c017cb",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 700,
+        "wires": [
+            [
+                "3489278206f773a3"
+            ]
+        ]
+    },
+    {
+        "id": "6a123941548f77c7",
         "type": "debug",
         "z": "1472062f49c017cb",
         "name": "debug 2",
@@ -520,8 +1160,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 640,
-        "y": 398,
+        "x": 260,
+        "y": 280,
         "wires": []
     },
     {
