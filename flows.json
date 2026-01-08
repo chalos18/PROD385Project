@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "96cb48750b368e6e",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "3bdfb04da7eb1211",
         "type": "mqtt-broker",
         "d": true,
@@ -515,5 +523,145 @@
         "x": 640,
         "y": 398,
         "wires": []
+    },
+    {
+        "id": "e4126b3cdfc1c20e",
+        "type": "rpi-gpio out",
+        "z": "96cb48750b368e6e",
+        "name": "servo",
+        "pin": "14",
+        "set": false,
+        "level": "0",
+        "freq": "50",
+        "out": "pwm",
+        "bcm": true,
+        "x": 790,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d0abea2d6d15f4ad",
+        "type": "inject",
+        "z": "96cb48750b368e6e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 590,
+        "y": 300,
+        "wires": [
+            [
+                "e4126b3cdfc1c20e"
+            ]
+        ]
+    },
+    {
+        "id": "090eaba82f262624",
+        "type": "inject",
+        "z": "96cb48750b368e6e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "5",
+        "payloadType": "str",
+        "x": 590,
+        "y": 340,
+        "wires": [
+            [
+                "e4126b3cdfc1c20e"
+            ]
+        ]
+    },
+    {
+        "id": "bacd7dcf9550e574",
+        "type": "inject",
+        "z": "96cb48750b368e6e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "7",
+        "payloadType": "str",
+        "x": 590,
+        "y": 380,
+        "wires": [
+            [
+                "e4126b3cdfc1c20e"
+            ]
+        ]
+    },
+    {
+        "id": "266e67063c0593f6",
+        "type": "inject",
+        "z": "96cb48750b368e6e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "str",
+        "x": 590,
+        "y": 420,
+        "wires": [
+            [
+                "e4126b3cdfc1c20e"
+            ]
+        ]
+    },
+    {
+        "id": "ff57b5a8d8b756f9",
+        "type": "inject",
+        "z": "96cb48750b368e6e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 590,
+        "y": 240,
+        "wires": [
+            [
+                "e4126b3cdfc1c20e"
+            ]
+        ]
     }
 ]
