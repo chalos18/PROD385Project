@@ -599,7 +599,7 @@
         "type": "mqtt in",
         "z": "1472062f49c017cb",
         "name": "Location",
-        "topic": "owntracks/project/emu64xa",
+        "topic": "python/mqtt",
         "qos": "0",
         "datatype": "auto-detect",
         "broker": "02daa27376c86de2",
@@ -611,8 +611,8 @@
         "y": 460,
         "wires": [
             [
-                "c6b554f83ddc6755",
-                "6a123941548f77c7"
+                "6a123941548f77c7",
+                "74d0df394c40b983"
             ]
         ]
     },
@@ -665,7 +665,8 @@
         "y": 280,
         "wires": [
             [
-                "d3d461f49fabeb05"
+                "d3d461f49fabeb05",
+                "6696ab008824c279"
             ]
         ]
     },
@@ -683,26 +684,6 @@
         "x": 1130,
         "y": 280,
         "wires": []
-    },
-    {
-        "id": "c6b554f83ddc6755",
-        "type": "function",
-        "z": "1472062f49c017cb",
-        "name": "function 1",
-        "func": "msg.payload = msg.payload.inregions[0];\nif (msg.payload == \"I am home!\"){\n    msg.location = \"home\"\n    return msg;\n}\nif (msg.payload == \"climbing\"){\n    msg.location = \"climbing\"\n    return msg;\n}\nif (msg.payload == \"work\"){\n    msg.location = \"work\"\n    return msg;\n}\nif (msg.payload == \"university\"){\n    msg.location = \"university\"\n    return msg;\n}\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 300,
-        "y": 460,
-        "wires": [
-            [
-                "d57e3cacd9e8a0f0"
-            ]
-        ]
     },
     {
         "id": "0516fe49272854c8",
@@ -950,7 +931,7 @@
         "type": "rpi-gpio out",
         "z": "1472062f49c017cb",
         "name": "Green",
-        "pin": "25",
+        "pin": "22",
         "set": true,
         "level": "0",
         "freq": "",
@@ -961,25 +942,14 @@
         "wires": []
     },
     {
-        "id": "d57e3cacd9e8a0f0",
-        "type": "link out",
-        "z": "1472062f49c017cb",
-        "name": "link out 1",
-        "mode": "link",
-        "links": [
-            "d55f6f66e484b96a"
-        ],
-        "x": 405,
-        "y": 460,
-        "wires": []
-    },
-    {
         "id": "d55f6f66e484b96a",
         "type": "link in",
         "z": "1472062f49c017cb",
         "name": "link in 1",
         "links": [
-            "d57e3cacd9e8a0f0"
+            "d57e3cacd9e8a0f0",
+            "ff0133f3294c5510",
+            "74d0df394c40b983"
         ],
         "x": 535,
         "y": 460,
@@ -1152,7 +1122,7 @@
         "type": "debug",
         "z": "1472062f49c017cb",
         "name": "debug 2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1199,6 +1169,97 @@
         "statusType": "auto",
         "x": 240,
         "y": 180,
+        "wires": []
+    },
+    {
+        "id": "21bde08692250382",
+        "type": "mqtt out",
+        "z": "1472062f49c017cb",
+        "name": "Acknowledgement",
+        "topic": "home/presence/ack",
+        "qos": "0",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "02daa27376c86de2",
+        "x": 1090,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6696ab008824c279",
+        "type": "change",
+        "z": "1472062f49c017cb",
+        "name": "Ack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "OK",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 160,
+        "wires": [
+            [
+                "21bde08692250382"
+            ]
+        ]
+    },
+    {
+        "id": "71e2926d8029b7d8",
+        "type": "function",
+        "z": "1472062f49c017cb",
+        "name": "msg payload processing",
+        "func": "msg.payload = msg.payload.inregions[0];\nif (msg.payload == \"I am home!\"){\n    msg.location = \"home\"\n    return msg;\n}\nif (msg.payload == \"climbing\"){\n    msg.location = \"climbing\"\n    return msg;\n}\nif (msg.payload == \"work\"){\n    msg.location = \"work\"\n    return msg;\n}\nif (msg.payload == \"university\"){\n    msg.location = \"university\"\n    return msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 540,
+        "wires": [
+            [
+                "ff0133f3294c5510"
+            ]
+        ]
+    },
+    {
+        "id": "ff0133f3294c5510",
+        "type": "link out",
+        "z": "1472062f49c017cb",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "d55f6f66e484b96a"
+        ],
+        "x": 445,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "74d0df394c40b983",
+        "type": "link out",
+        "z": "1472062f49c017cb",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "d55f6f66e484b96a"
+        ],
+        "x": 445,
+        "y": 460,
         "wires": []
     },
     {
