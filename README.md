@@ -1,7 +1,7 @@
 ---
 title: Location-Based IoT Map – Monopoly Style
 author: Ana Oliveira
-date: \today
+date: January 21, 2026
 ---
 
 - [Introduction](#introduction)
