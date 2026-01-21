@@ -1,160 +1,517 @@
-# Location-Based IoT Map - Monopoly style
+---
+title: Location-Based IoT Map – Monopoly Style
+author: Ana Oliveira
+date: \today
+---
 
-**Author:** Ana Oliveira
-
-- [Location-Based IoT Map - Monopoly style](#location-based-iot-map---monopoly-style)
-  - [Introduction](#introduction)
-  - [Project Overview](#project-overview)
-  - [1. Project Requirements and System Architecture](#1-project-requirements-and-system-architecture)
-    - [Inputs](#inputs)
-    - [Outputs](#outputs)
-  - [3. System Requirements](#3-system-requirements)
-    - [Bill of materials](#bill-of-materials)
-  - [4. Powering the System](#4-powering-the-system)
-  - [5. How-To: Cloud Setup and Messaging](#5-how-to-cloud-setup-and-messaging)
+- [Introduction](#introduction)
+- [Project Overview](#project-overview)
+- [System Requirements and Architecture](#system-requirements-and-architecture)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+- [Bill of Materials](#bill-of-materials)
+  - [Microcontrollers \& Computing](#microcontrollers--computing)
+  - [Power Components](#power-components)
+  - [Electronics \& Wiring](#electronics--wiring)
+  - [Sensors \& Displays](#sensors--displays)
+  - [Mechanical Components](#mechanical-components)
+  - [Optional (Presentation)](#optional-presentation)
+- [Powering the System](#powering-the-system)
+- [Physical Map Base Construction](#physical-map-base-construction)
+  - [Step 1 – Prepare the Map Surface](#step-1--prepare-the-map-surface)
+  - [Step 2 – Drill LED Mounting Holes](#step-2--drill-led-mounting-holes)
+  - [Step 3 – Elevate the Board for Electronics](#step-3--elevate-the-board-for-electronics)
+  - [Step 4 – Purpose of Elevation](#step-4--purpose-of-elevation)
+- [Build and Configuration Guide](#build-and-configuration-guide)
+  - [Raspberry Pi and LED Prototype Setup](#raspberry-pi-and-led-prototype-setup)
+  - [Cloud Setup and MQTT Messaging](#cloud-setup-and-mqtt-messaging)
+  - [Node-RED Location Processing](#node-red-location-processing)
+    - [Flow 1 – Location LEDs](#flow-1--location-leds)
+    - [Flow 2 – Home Presence](#flow-2--home-presence)
+  - [LCD and Weather Integration](#lcd-and-weather-integration)
+    - [LCD Function Code](#lcd-function-code)
+  - [PIR Sensor Integration](#pir-sensor-integration)
+    - [Wiring](#wiring)
+    - [Node-RED Logic](#node-red-logic)
+- [Mechanical Climbing Rope Mechanism](#mechanical-climbing-rope-mechanism)
+  - [System Overview](#system-overview)
+    - [Step 1 – Motor and Spool Assembly](#step-1--motor-and-spool-assembly)
+    - [Step 2 – Rope Setup](#step-2--rope-setup)
+    - [Step 3 – Climbing Surface](#step-3--climbing-surface)
+    - [Step 4 – Control and Safety Considerations](#step-4--control-and-safety-considerations)
+    - [Step 5 – Upload Code to the Arduino](#step-5--upload-code-to-the-arduino)
+- [Testing Scripts](#testing-scripts)
+- [FAQ and Debugging Tips](#faq-and-debugging-tips)
 
 
 ## Introduction
-This documentation provides:
+
+This document provides:
 - Full **technical documentation**
-- Step-by-step **how-to instructions**
-- Design justification for mechanical, electronic, and software components
+- Step-by-step **build and configuration instructions**
+- Clear justification of **mechanical, electronic, and software design decisions**
 
-The document is intended to be readable by someone recreating the project from scratch.
-
+It is written to allow someone to recreate the project from scratch with minimal prior knowledge.
 
 ## Project Overview
-This project implements a **location-aware Internet of Things (IoT) system** that combines **cloud-based communication**, **physical outputs**, and a **mechanical element** to create a playful but meaningful way of sharing presence and activity.
 
-A mobile phone uses geofencing to detect when the user enters or leaves predefined locations (home, work, university, and rock climbing). These events are published as **MQTT messages** to a **HiveMQ cloud broker** and processed using **Node-RED** running on **Raspberry Pi** devices. Based on these messages, LEDs embedded in a Monopoly-style map of Christchurch illuminate to show the user’s current location, while an **LCD1602 display** provides contextual text such as availability and weather information.
+This project implements a **location-aware Internet of Things (IoT) system** that translates digital presence into **physical and mechanical feedback**.
 
-In addition to geofencing, a **PIR motion sensor** installed at home acts as a local digital input, detecting presence in the room and sending updates to the same cloud infrastructure. This allows the system to distinguish between simply being at home and actively being present.
+A mobile phone uses **geofencing** to detect entry and exit from predefined locations (home, work, university, rock climbing). These events are published as **MQTT messages** to a **HiveMQ Cloud broker**. One or more **Raspberry Pi devices running Node-RED** subscribe to these messages and control physical outputs.
 
-The project also includes a mechanical subsystem: a **TT DC motor–driven climbing rope mechanism** controlled by physical buttons. This system winds and unwinds a rope attached to a LEGO climber, adding tangible, physical motion to the otherwise data-driven map. Together, these elements form a fully networked, **interactive IoT device** that translates digital information into meaningful physical feedback.
+A Monopoly-style map of Christchurch contains **LEDs embedded at key locations**, lighting up to show my current position. An **LCD1602 display** provides contextual information such as availability status and live weather data retrieved from an online API.
 
-## 1. Project Requirements and System Architecture
+Presence at home is further refined using a **PIR motion sensor**, allowing the system to distinguish between being at home and actively present.
 
-This project meets the requirements of designing and building a connected, Internet of Things (IoT) enabled mechanical device by combining internet-based communication with physical interaction. Location data is sent to a cloud-based MQTT server using geofencing and PIR-triggered events, allowing the IoT map to update real-world outputs such as LEDs and an LCD screen.
+A mechanical subsystem adds physical interaction: a **TT DC motor–driven climbing rope mechanism**, controlled by buttons, winds and unwinds a rope attached to a LEGO climber. This introduces tangible movement and satisfies the requirement for an IoT-enabled mechanical device.
 
-A clear mechanical component is included through a TT DC motor–controlled climbing rope mechanism, which physically moves a LEGO figure using electronic control and physical buttons. This satisfies the requirement for a device that is both connected and mechanical.
+Together, these elements form a **networked, interactive IoT artefact** that responds primarily to internet-sourced data.
 
-The project demonstrates multiple electronic-input-driven and wireless behaviours. A PIR sensor detects movement at home and sends messages to the cloud, while geofencing acts as a virtual wireless input for other locations. All events are transmitted over the internet to a HiveMQ server, where Node-RED processes the data and controls LEDs, LCD messages, and system behaviour. As a result, the device responds primarily to internet-sourced data, meeting the criteria for internet-based control.
+---
 
-The system also satisfies the requirement for multiple inputs and outputs. Digital inputs include the PIR sensor, push buttons, and geofence events, while analogue input is provided through real-time weather data retrieved from an online API. Outputs include digital LEDs, an LCD display, and a PWM-controlled DC motor, resulting in a well-rounded and responsive IoT system.
+![Final product](images/final_product.png)
+
+---
+
+## System Requirements and Architecture
+
+This project satisfies the requirement for a connected IoT mechanical system by combining:
+
+- **Internet-based communication** (MQTT, cloud broker)
+- **Wireless and physical inputs**
+- **Digital and analogue outputs**
+- **A mechanically actuated component**
+
+Geofencing and PIR-triggered events are transmitted via MQTT to a HiveMQ server. Node-RED processes incoming data and updates LEDs, LCD messages, and motor behaviour accordingly.
+
+Multiple inputs and outputs are used, with the system reacting primarily to **cloud-sourced data**, meeting the criteria for internet-driven control.
 
 ---
 
 ### Inputs
-| Input                    | Type     | Description                                                            |
-| ------------------------ | -------- | ---------------------------------------------------------------------- |
-| PIR motion sensor        | Digital  | Detects movement at home and sends a cloud message indicating presence |
-| Push buttons             | Digital  | Manual control of climbing mechanism (up / down)                       |
-| Geofence location events | Digital  | Wireless location-based events triggered by entering defined areas     |
-| Weather API data         | Analogue | Continuous environmental data such as temperature and conditions       |
+
+| Input             | Type     | Description                                             |
+| ----------------- | -------- | ------------------------------------------------------- |
+| PIR motion sensor | Digital  | Detects motion at home and publishes presence events    |
+| Push buttons      | Digital  | Manual control of climbing mechanism (up/down)          |
+| Geofence events   | Digital  | Location-based triggers from mobile device              |
+| Weather API       | Analogue | Continuous environmental data (temperature, conditions) |
+
+---
 
 ### Outputs
-| Output        | Type           | Description                                                  |
-| ------------- | -------------- | ------------------------------------------------------------ |
-| LEDs          | Digital        | Indicates current location on the physical map               |
-| LCD1602 (I²C) | Digital        | Displays location messages and real-time weather information |
-| TT DC motor   | Analogue (PWM) | Winds and unwinds rope to move LEGO climber                  |
 
+| Output        | Type           | Description                               |
+| ------------- | -------------- | ----------------------------------------- |
+| LEDs          | Digital        | Indicate current location on physical map |
+| LCD1602 (I²C) | Digital        | Displays availability and weather data    |
+| TT DC motor   | Analogue (PWM) | Winds/unwinds rope to move LEGO climber   |
 
 ---
 
-## 3. System Requirements
+## Bill of Materials
 
-### Bill of materials
-
-Before starting the build, the following components were required to ensure the project could be developed, tested, and deployed successfully. Several components were chosen based on availability, ease of prototyping, and the need to test multiple subsystems in parallel.
-
-**Microcontrollers & Computing**
+### Microcontrollers & Computing
 - 2 × Raspberry Pi (Model 3 and Model 4)
-    - Used to handle IoT communication, server interaction, control of LEDs, LCD display, and PIR motion detection node.
-    - **Note**: One Raspberry Pi could be replaced with a lower-cost microcontroller such as a Wemos D1 Mini for a more budget-friendly build
+  - Node-RED, MQTT handling, LEDs, LCD, PIR
+  - *Note:* One Pi could be replaced with a Wemos D1 Mini for a lower-cost build
 - Arduino Mega
-    - Used to control the TT DC motor climbing rope mechanism and handle physical button inputs
+  - Controls motor driver and button inputs
+  - *Note:* This could also be replaced with a Wemos D1 Mini
 - Raspberry Pi GPIO HAT (solderable)
-    - Provides extended and more reliable GPIO access for soldering LEDs and other permanent connections
+- 2 × Micro SD cards
 
-**Power Components**
+### Power Components
+- USB battery pack (Raspberry Pi 4)
+- USB wall adapter (Raspberry Pi 3)
+- 2 × AA batteries (motor prototypes)
 
-- Battery pack (for Raspberry Pi 4)
-    - Enables portable operation of the IoT map
-- Wall power adapter (for Raspberry Pi 3)
-    - Provides stable power during development and testing
-- 2 × AA batteries
-    - Used to power motors and standalone prototypes
+### Electronics & Wiring
+- 4 × LEDs
+- 4 × 220ohm –330ohm resistors
+- Female pin headers
+- Jumper wires (F–F, M–M, F–M)
+- Breadboards (minimum 2)
 
-**Electronics & Wiring**
-
-- 4 × Yellow LEDs
-    - Indicate different locations on the physical map
-- 4 × 220Ω or 330Ω resistors
-    - Protect LEDs from overcurrent
-- 3 × Female pin headers
-    - Used for modular and replaceable connections
-- Soldering wire (e.g., 4 red and 4 black wires, ~10 cm each)
-    - Used for permanent LED and power connections
-- Jumper wires (recommended in bulk)
-    - Female-to-female
-    - Male-to-male
-    - Female-to-male
-    - Buying packs is recommended, as multiple prototypes were often active at the same time
-- Breadboards (minimum of 2, ideally 3)
-    - Used for testing individual subsystems (LEDs, sensors, motors) simultaneously
-
-**Sensors & Displays**
-
+### Sensors & Displays
 - PIR motion sensor
-    - Detects movement at the home location and triggers server updates.
 - LCD1602 I²C display
-    - Displays location-based text messages in a clear and user-friendly way.
 
-**Mechanical Components**
-
+### Mechanical Components
 - TT DC motor
-    - Climbing rope anchor system
-- L293D Dual Full-Bridge Motor Driver IC
-    - Allows safe control of DC motor direction and speed
-- Fishing line (or similar)
-    - Acts as the climbing rope
-- LEGO minifigure (or similar)
-    - Represents a climber and provides a playful, physical element to the project
-- Wooden lid to hold rope into place when attached to TT DC motor (see pictures below, different alternatives could be used)
+- L293D motor driver IC
+- Fishing line
+- LEGO minifigure
+- Wooden or printed rope guide
 
-**Optional (Final Presentation & Enclosure)**
-- 3D-printed PIR sensor and LCD holder
-    - Improves durability and presentation of the final device
-- 3D-printed location icons (e.g. house, campus)
-    - Enhances clarity and visual appeal of the physical map
-- Plywood (approx. 30 × 30 cm)
-    - Used to construct the base map and mounting structure
+### Optional (Presentation)
+- 3D-printed LCD and PIR enclosures
+- 3D-printed location icons
+- 30 × 30 cm plywood base
 - Wood glue
-    - For assembling the plywood frame
 
 ---
 
-## 4. Powering the System
+## Powering the System
 
-The system is designed to operate continuously, as its usefulness depends on always being available. Disposable batteries are avoided wherever possible in favour of USB and mains-powered solutions.
+The system is designed for continuous operation.
 
-- Raspberry Pi 3 (PIR sensor): powered via wall adapter for continuous home monitoring
-- Raspberry Pi 4 (LEDs and LCD): powered via USB power bank for portability
-- Arduino Mega (motor system): powered via USB wall adapter; can be disconnected when not in use
+- Raspberry Pi 3 (PIR): USB wall adapter
+- Raspberry Pi 4 (LEDs + LCD): USB power bank
+- Arduino Mega (motor): USB wall adapter
 
-This approach improves reliability, reduces maintenance, and supports long-term operation.
+This avoids disposable batteries and improves reliability.
 
-## 5. How-To: Cloud Setup and Messaging
+---
 
-A serverless HiveMQ Cloud cluster is used to receive MQTT messages from the phone and sensors. Topics are defined for location updates, motion detection, and system control. Node-RED subscribes to these topics and routes messages to GPIO outputs and display logic.
+## Physical Map Base Construction
 
-1. Start a serverless Hive MQ Cloud cluster to receive MQTT messages
-2. Connect 4 LEDs in series for our first circuit prototype
-    
-    <img src="images/LED_prototype_1.JPEG" alt="Alt text" width="400" height="400">
-    <img src="images/LED_prototype_1.JPEG" alt="Alt text" width="400" height="400">
-    <img src="images/LED_prototype_schematic.jpg" alt="Alt text" width="500" height="500">
+Create a **30 × 30 cm plywood base** to act as the physical map surface. This board represents the Monopoly-style Christchurch map and houses the LEDs and wiring.
 
-3. 
+### Step 1 – Prepare the Map Surface
+- Cut a square plywood panel measuring **30 × 30 cm**.
+- Engrave or laser-etch a **street-level map of Christchurch** onto the top surface.
+- Clearly mark the three key locations (e.g. home, university, work).
 
+![Engraved street level map of Christchurch](images/engraved_board.png)
+
+### Step 2 – Drill LED Mounting Holes
+- For **each location**, drill **two small holes** close together.
+- The holes should be spaced just wide enough for **both LED legs to pass through**.
+- Ensure the holes are clean and smooth to avoid damaging LED leads during installation.
+
+![LED Mounting Holes Example](images/LED_setup_example.png)
+
+
+### Step 3 – Elevate the Board for Electronics
+- The board must be raised to provide space underneath for wiring and soldered connections.
+- Construct a **support frame approximately 8 cm high** using wooden strips.
+- Attach the frame to the underside edges of the board using **wood glue**.
+- Clamp the frame firmly while the glue cures to keep the structure square and level.
+
+### Step 4 – Purpose of Elevation
+- Elevating the board allows:
+  - LED legs to pass cleanly through the surface
+  - Wiring and resistors to be installed underneath the board
+  - Neat cable routing with no visible electronics on the map surface
+- This design improves **safety**, **maintainability**, and **visual presentation**.
+  
+![Constructing the board](images/woodworking.JPEG)
+
+The completed structure forms a rigid, elevated map base with concealed electronics and clearly visible LED indicators on the engraved surface.
+
+## Build and Configuration Guide
+
+### Raspberry Pi and LED Prototype Setup
+
+1. Create a **serverless HiveMQ Cloud cluster**
+2. With the Pi **unplugged**, prototype LEDs on a breadboard:
+   - Anode (long leg) → resistor → 3.3V
+   - Cathode (short leg) → ground
+   - All LEDs share a common ground
+3. Flash Raspberry Pi OS with Node-RED enabled  
+   - See `raspberry_pi_image.md` in the repository
+   - Youtube videos are also quite useful for demonstrating step by step processes for how to do this
+4. Power the Pi and confirm LEDs function correctly
+
+![LED prototype](images/LED_prototype_1.JPEG)
+
+---
+
+![LED prototype schematic](images/LED_prototype_schematic.jpg)
+
+---
+
+### Cloud Setup and MQTT Messaging
+
+HiveMQ Cloud receives messages from:
+- Mobile geofencing
+- PIR sensor
+- Test scripts
+
+Node-RED subscribes to relevant topics and routes messages to GPIO and LCD logic. Note down the credentials you have set to access the broker.
+
+---
+
+### Node-RED Location Processing
+
+Create a new MQTT broker configuration:
+- Broker: HiveMQ Cloud URL
+- Port: 8883
+- Enable TLS
+- Enter username and password
+
+#### Flow 1 – Location LEDs
+1. Subscribe to `python/mqtt`
+2. Parse location payloads (`work`, `university`)
+3. Map each location to a GPIO output
+4. Activate LED mapped location is received
+5. Override other LEDs by sending 0 signal to ensure only one LED is ON at a time
+
+#### Flow 2 – Home Presence
+1. Subscribe to `home/presence`
+2. Activate home LED once a message is received
+3. Override other LEDs by sending 0 signal to ensure only one LED is ON at a time
+4. Publish message 'OK' to `home/presence/ack` to act as a health check
+
+--- 
+
+### LCD and Weather Integration
+
+![LCD setup](images/LCD_board.JPEG)
+
+- Install `node-red-contrib-i2clcd`
+- LCD layout:
+  - **Line 1:** Availability message
+  - **Line 2:** Weather + temperature
+- Use an HTTP Request node to call OpenWeather API
+  - ```
+    https://api.openweathermap.org/data/2.5/weather?q=YOUR_CITY,YOUR_COUNTRY&units=metric&appid=YOUR_API_KEY
+    ```
+
+#### LCD Function Code
+
+```js
+    let temp = Math.round(msg.payload.main.temp);
+    let desc = msg.payload.weather[0].description;
+
+    // Build LCD payload
+    msg.payload = [
+        {
+            clear: true,
+            text: "Call me whenever!",
+            alignment: "left"
+        },
+        {
+            text: `${desc} ${temp}C`.substring(0, 16),
+            alignment: "left"
+        }
+    ];
+
+    return msg;
+```
+
+---
+
+![Node-RED flow](images/node_red_flow1.png)
+
+---
+
+### PIR Sensor Integration
+
+With your second Pi:
+
+#### Wiring
+
+- **VCC →** 5V  
+- **GND →** Ground  
+- **OUT →** GPIO input pin  
+
+#### Node-RED Logic
+
+- GPIO input node
+- Rising-edge motion detection
+- Publish MQTT message:
+    ```
+    home/presence: home
+    ```
+- Subscribe to `home/presence/ack`
+- Wire a simple LED circuit that lights up once the Pi has received acknowledgement that motion sensor triggered the LED of the IoT map
+  
+![PIR motion sensor](images/PIR_sensor_setup.JPEG)
+
+---
+
+## Mechanical Climbing Rope Mechanism
+
+This subsystem adds a physical, kinetic element to the project by simulating a climbing action using a **TT DC motor**, fishing line, and a LEGO minifigure. The mechanism converts rotational motor motion into controlled vertical movement.
+
+### System Overview
+- A **TT DC motor** is mounted above the climbing area and acts as a winch
+- A **custom wooden spool** is attached to the motor shaft
+- **Fishing line** is wound around the spool and attached to a LEGO climber
+- As the motor rotates, the rope winds or unwinds, moving the climber up or down
+
+---
+
+#### Step 1 – Motor and Spool Assembly
+- Attach a **small wooden spool or cross-shaped pulley** to the shaft of the TT DC motor
+- Secure the spool using:
+  - A central screw, or
+  - Press-fit and glue, ensuring it does not slip under load
+- The spool diameter should be small to limit vertical travel per rotation and prevent excessive movement
+
+---
+
+#### Step 2 – Rope Setup
+- Use **fishing line** or a similar thin, strong cord
+- Tie one end securely to the spool
+- Wind several turns of line around the spool in a single direction
+- Attach the free end of the line to the LEGO minifigure:
+  - The knot should be tight but positioned so the climber hangs upright
+  - Keep the line as vertical as possible to avoid sideways drift
+
+---
+
+#### Step 3 – Climbing Surface
+- Mount a **perforated or textured vertical panel** behind the climber
+- This provides:
+  - Visual realism (climbing wall effect)
+  - A reference surface to judge movement distance
+- The panel does not bear load; it is purely structural and visual, it can be glued, or - depending on its structure - placed gently on the edge of the board
+
+---
+
+#### Step 4 – Control and Safety Considerations
+- The motor is driven via an **L293D motor driver**, allowing:
+  - Direction control (up/down) - bidirectional
+  - Speed control using PWM
+- The climber is lightweight, though **not weightless**, ensuring:
+  - Low torque requirements
+  - Reduced strain on the motor and driver
+
+---
+
+#### Step 5 – Upload Code to the Arduino
+- Using Arduino IDE, upload the sketch found under the sketches folder in the root of this repository `./arduino_sketches/climbing_arduino.ino`
+
+---
+
+![Climbing prototype](images/climbing_prototype.JPEG)
+
+---
+
+![Climbing Batman](images/climbing_batman.jpg)
+
+---
+
+## Testing Scripts
+
+These scripts will send the location MQTT message to HiveMQ for easy and quick testing. Ensure you have read the comments that explain where to put your credentials, as well as uncommenting your chosen topic for the manual test script.
+
+- `presentation_test_workflow.py`
+  - Automatically cycles through locations (used during demo)
+- `manual_test_workflow.py`
+  - Manually trigger locations by editing topic selection
+
+## FAQ and Debugging Tips
+
+**What direction do electrons flow?**
+- Electrons flow from negative (cathode) to positive (anode)
+- This is a very useful simple concept to remember
+- It is vital to remember this when building larger circuits. Basics are as important if not more than complex concepts!
+
+---
+
+**Why is my LED wired correctly but still not turning on?**
+- Ensure the LED has a **current-limiting resistor** (typically 220–330Ω)
+- Double-check **polarity** (long leg = anode, short leg = cathode)
+- Confirm the GPIO pin is configured as an **output**
+- Verify that the LED is not exceeding the **GPIO current limit**
+- Always ensure a **common ground** between all connected components
+
+---
+
+**Can I power motors or servos directly from a Raspberry Pi or Arduino GPIO pin?**
+- No. GPIO pins **cannot supply enough current**
+- Motors and servos must be powered from:
+  - An **external power supply**, or
+  - A **motor driver / servo driver**
+- GPIO pins should only provide **control signals**, never power
+
+---
+
+**Why is my I2C LCD not lighting up or displaying anything?**
+- Check wiring carefully:
+  - **SDA → SDA**
+  - **SCL → SCL**
+  - **VCC → correct voltage (often 5V)**
+  - **GND → common ground**
+- Adjust the **contrast potentiometer** on the LCD module
+- Confirm the I2C address using an `i2cdetect` scan
+- If using 5V LCD with a Raspberry Pi:
+  - Ensure **logic-level compatibility** (level shifter if required)
+
+---
+
+**Do I need a common ground when using multiple power sources?**
+- **Yes - always**
+- All components (Pi, Arduino, motor driver, sensors) must share a **common ground**
+- Without this, control signals will behave unpredictably or not work at all
+
+---
+
+**Why isn’t my PIR sensor triggering messages?**
+- Allow **30–60 seconds warm-up time** after power-up
+- Ensure the PIR output is connected to a **GPIO input pin**
+- In Node-RED:
+  - Use a **GPIO input node**
+  - Detect **rising edge** events
+- Verify the sensor is powered with the correct voltage (usually 5V, but some are compatible with 3.3V)
+
+---
+
+**Why does my servo or motor jitter or behave erratically?**
+- Power supply may be insufficient or unstable
+- PWM values may be changing too quickly
+- Ensure:
+  - External power for motors
+  - Shared ground
+  - Smooth PWM ramping for slow movement
+
+---
+
+**Why isn’t my Node-RED flow responding to MQTT messages?**
+- Verify the **exact topic name** (MQTT is case-sensitive)
+- Confirm the payload format matches what your flow expects
+- Use an MQTT debug node to inspect incoming messages
+- Test with manual publish tools before integrating hardware
+
+---
+
+**Why does my LCD text overflow or look cut off?**
+- LCD1602 screens support **16 characters per line**
+- Truncate or substring text before sending
+- Avoid automatic line wrapping — format explicitly
+- Update only when content changes to prevent flicker
+
+---
+
+**Why do I need a motor driver (e.g., L293D) instead of wiring the motor directly?**
+- Motor drivers:
+  - Protect your microcontroller
+  - Handle higher currents
+  - Allow **bi-directional control**
+  - Enable **PWM speed control**
+- Direct motor wiring can permanently damage GPIO pins
+
+---
+
+**What’s the safest way to test my system before full deployment?**
+- Test subsystems independently:
+  - MQTT → LEDs
+  - PIR → MQTT
+  - Buttons → Motor
+- Use **manual MQTT publishes** for validation
+- Start with **low PWM values**
+- Secure all cables before final testing
+
+---
+
+**What are the most common mistakes beginners make in this project?**
+- Forgetting current-limiting resistors
+- Powering motors/servos from GPIO
+- Not sharing a common ground
+- Incorrect I2C wiring or address
+- MQTT topic or payload mismatches
+- Missing credentials on MQTT connection
+
+---
+
+**If something suddenly stops working, what should I check first?**
+- Loose jumper wires (very common)
+- Power connections
+- MQTT broker connectivity
+- Internet connectivity
+- Restart Node-RED and the device
+- Take a breath — it’s usually something small
