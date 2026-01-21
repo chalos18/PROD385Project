@@ -183,6 +183,8 @@ Create a **30 × 30 cm plywood base** to act as the physical map surface. This b
 ![Board construction](images/woodworking.JPEG)
 *Elevated base construction*
 
+As I was not the most woodworking savvy person when starting this project, I found myself receiving great help from the lab technicians in the Product Design department. The help allowed me to have a better than expected laser-etching map and a very strong bond from the clamping technique I was given to glue the frames together.
+
 ---
 
 ## Build and Configuration Guide
@@ -210,6 +212,8 @@ For the final setup, you will want to solder the LEDs onto female headers that w
 
 ![LED soldering example](images/LEDs_soldering.JPEG)
 *LED soldering*
+
+The electronics setup, specially soldering, is another section that was improved due to the numerous advice from lab technicians and fellow classmates.
 
 ---
 
