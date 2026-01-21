@@ -38,7 +38,7 @@ date: January 21, 2026
     - [Step 3 – Climbing Surface](#step-3--climbing-surface)
     - [Step 4 – Control and Safety Considerations](#step-4--control-and-safety-considerations)
     - [Step 5 – Upload Code to the Arduino](#step-5--upload-code-to-the-arduino)
-- [Testing Scripts](#testing-scripts)
+- [Testing Scripts and Tips](#testing-scripts-and-tips)
 - [FAQ and Debugging Tips](#faq-and-debugging-tips)
 
 
@@ -373,7 +373,7 @@ This subsystem adds a physical, kinetic element to the project by simulating a c
 
 ---
 
-## Testing Scripts
+## Testing Scripts and Tips
 
 These scripts will send the location MQTT message to HiveMQ for easy and quick testing. Ensure you have read the comments that explain where to put your credentials, as well as uncommenting your chosen topic for the manual test script.
 
@@ -381,6 +381,15 @@ These scripts will send the location MQTT message to HiveMQ for easy and quick t
   - Automatically cycles through locations (used during demo)
 - `manual_test_workflow.py`
   - Manually trigger locations by editing topic selection
+
+---
+
+- Ensure the Raspberry Pi inside the board is powered by the power bank
+- The Raspberry Pi with the PIR sensor can be powered by a wall plug
+- The Arduino is powered by a wall plug
+- Both Raspberry Pi's must be connected to the wifi to be able to communicate and respond appropriately to MQTT messages
+- The Arduino can be controlled by the two buttons on the breadboard so that the climber can be moved up or down
+- Try starting the test scripts and experimenting with what they do. I would suggest to start with `presentation_test_workflow.py` as that cycles through all locations and shows how the LCD changes
 
 ## FAQ and Debugging Tips
 
