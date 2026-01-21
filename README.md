@@ -7,8 +7,8 @@ date: \today
 - [Introduction](#introduction)
 - [Project Overview](#project-overview)
 - [System Requirements and Architecture](#system-requirements-and-architecture)
-  - [Inputs](#inputs)
-  - [Outputs](#outputs)
+- [Inputs](#inputs)
+- [Outputs](#outputs)
 - [Bill of Materials](#bill-of-materials)
   - [Microcontrollers \& Computing](#microcontrollers--computing)
   - [Power Components](#power-components)
@@ -21,10 +21,8 @@ date: \today
   - [Step 1 – Prepare the Map Surface](#step-1--prepare-the-map-surface)
   - [Step 2 – Drill LED Mounting Holes](#step-2--drill-led-mounting-holes)
   - [Step 3 – Elevate the Board for Electronics](#step-3--elevate-the-board-for-electronics)
-  - [Step 4 – Purpose of Elevation](#step-4--purpose-of-elevation)
 - [Build and Configuration Guide](#build-and-configuration-guide)
   - [Raspberry Pi and LED Prototype Setup](#raspberry-pi-and-led-prototype-setup)
-  - [Cloud Setup and MQTT Messaging](#cloud-setup-and-mqtt-messaging)
   - [Node-RED Location Processing](#node-red-location-processing)
     - [Flow 1 – Location LEDs](#flow-1--location-leds)
     - [Flow 2 – Home Presence](#flow-2--home-presence)
@@ -57,55 +55,47 @@ It is written to allow someone to recreate the project from scratch with minimal
 
 This project implements a **location-aware Internet of Things (IoT) system** that translates digital presence into **physical and mechanical feedback**.
 
-A mobile phone uses **geofencing** to detect entry and exit from predefined locations (home, work, university, rock climbing). These events are published as **MQTT messages** to a **HiveMQ Cloud broker**. One or more **Raspberry Pi devices running Node-RED** subscribe to these messages and control physical outputs.
+A mobile phone uses **geofencing** to detect entry and exit from predefined locations. These events are published as **MQTT messages** to a **HiveMQ Cloud broker**, where **Node-RED running on Raspberry Pi devices** subscribes and reacts.
 
-A Monopoly-style map of Christchurch contains **LEDs embedded at key locations**, lighting up to show my current position. An **LCD1602 display** provides contextual information such as availability status and live weather data retrieved from an online API.
+A Monopoly-style map of Christchurch contains **LEDs embedded at key locations**, lighting up to show my current position. An **LCD1602 display** provides availability status and live weather data retrieved from an online API.
 
-Presence at home is further refined using a **PIR motion sensor**, allowing the system to distinguish between being at home and actively present.
+Presence at home is refined using a **PIR motion sensor**, distinguishing between being home and being actively present.
 
-A mechanical subsystem adds physical interaction: a **TT DC motor–driven climbing rope mechanism**, controlled by buttons, winds and unwinds a rope attached to a LEGO climber. This introduces tangible movement and satisfies the requirement for an IoT-enabled mechanical device.
-
-Together, these elements form a **networked, interactive IoT artefact** that responds primarily to internet-sourced data.
-
----
+A mechanical subsystem adds physical interaction through a **TT DC motor–driven climbing rope mechanism**, moving a LEGO climber.
 
 ![Final product](images/final_product.png)
+*Final assembled system*
 
 ---
 
 ## System Requirements and Architecture
 
-This project satisfies the requirement for a connected IoT mechanical system by combining:
-
+The system combines:
 - **Internet-based communication** (MQTT, cloud broker)
 - **Wireless and physical inputs**
 - **Digital and analogue outputs**
 - **A mechanically actuated component**
 
-Geofencing and PIR-triggered events are transmitted via MQTT to a HiveMQ server. Node-RED processes incoming data and updates LEDs, LCD messages, and motor behaviour accordingly.
-
-Multiple inputs and outputs are used, with the system reacting primarily to **cloud-sourced data**, meeting the criteria for internet-driven control.
+Geofencing and PIR-triggered events are transmitted via MQTT to HiveMQ. Node-RED processes the data and updates LEDs, LCD messages, and motor behaviour accordingly.
 
 ---
 
-### Inputs
+## Inputs
 
-| Input             | Type     | Description                                             |
-| ----------------- | -------- | ------------------------------------------------------- |
-| PIR motion sensor | Digital  | Detects motion at home and publishes presence events    |
-| Push buttons      | Digital  | Manual control of climbing mechanism (up/down)          |
-| Geofence events   | Digital  | Location-based triggers from mobile device              |
-| Weather API       | Analogue | Continuous environmental data (temperature, conditions) |
+| Input             | Type     | Description            |
+| ----------------- | -------- | ---------------------- |
+| PIR motion sensor | Digital  | Detects motion at home |
+| Push buttons      | Digital  | Manual motor control   |
+| Geofence events   | Digital  | Location triggers      |
+| Weather API       | Analogue | Environmental data     |
 
----
+## Outputs
 
-### Outputs
-
-| Output        | Type           | Description                               |
-| ------------- | -------------- | ----------------------------------------- |
-| LEDs          | Digital        | Indicate current location on physical map |
-| LCD1602 (I²C) | Digital        | Displays availability and weather data    |
-| TT DC motor   | Analogue (PWM) | Winds/unwinds rope to move LEGO climber   |
+| Output        | Type    | Description         |
+| ------------- | ------- | ------------------- |
+| LEDs          | Digital | Location indicators |
+| LCD1602 (I²C) | Digital | Status and weather  |
+| TT DC motor   | PWM     | LEGO climber motion |
 
 ---
 
@@ -173,15 +163,16 @@ Create a **30 × 30 cm plywood base** to act as the physical map surface. This b
 - Engrave or laser-etch a **street-level map of Christchurch** onto the top surface.
 - Clearly mark the three key locations (e.g. home, university, work).
 
-![Engraved street level map of Christchurch](images/engraved_board.png)
+![Engraved Christchurch map](images/engraved_board.png)
+*Laser-engraved map surface*
 
 ### Step 2 – Drill LED Mounting Holes
 - For **each location**, drill **two small holes** close together.
 - The holes should be spaced just wide enough for **both LED legs to pass through**.
 - Ensure the holes are clean and smooth to avoid damaging LED leads during installation.
 
-![LED Mounting Holes Example](images/LED_setup_example.png)
-
+![LED Mounting Holes](images/LED_setup_example.png)
+*LED mounting hole layout*
 
 ### Step 3 – Elevate the Board for Electronics
 - The board must be raised to provide space underneath for wiring and soldered connections.
@@ -189,16 +180,10 @@ Create a **30 × 30 cm plywood base** to act as the physical map surface. This b
 - Attach the frame to the underside edges of the board using **wood glue**.
 - Clamp the frame firmly while the glue cures to keep the structure square and level.
 
-### Step 4 – Purpose of Elevation
-- Elevating the board allows:
-  - LED legs to pass cleanly through the surface
-  - Wiring and resistors to be installed underneath the board
-  - Neat cable routing with no visible electronics on the map surface
-- This design improves **safety**, **maintainability**, and **visual presentation**.
-  
-![Constructing the board](images/woodworking.JPEG)
+![Board construction](images/woodworking.JPEG)
+*Elevated base construction*
 
-The completed structure forms a rigid, elevated map base with concealed electronics and clearly visible LED indicators on the engraved surface.
+---
 
 ## Build and Configuration Guide
 
@@ -212,24 +197,19 @@ The completed structure forms a rigid, elevated map base with concealed electron
 3. Flash Raspberry Pi OS with Node-RED enabled  
    - See `raspberry_pi_image.md` in the repository
    - Youtube videos are also quite useful for demonstrating step by step processes for how to do this
-4. Power the Pi and confirm LEDs function correctly
+4. Power the Pi
+5. Verify LED operation
 
 ![LED prototype](images/LED_prototype_1.JPEG)
+*LED breadboard prototype*
 
----
+![LED schematic](images/LED_prototype_schematic.jpg)
+*LED wiring schematic*
 
-![LED prototype schematic](images/LED_prototype_schematic.jpg)
+For the final setup, you will want to solder the LEDs onto female headers that will go on the Raspberry PI. The LEDs will be placed through the plywood board first, and then its legs are soldered underneath. We want to translate the breadboard to something we can nicely fit on our final map.
 
----
-
-### Cloud Setup and MQTT Messaging
-
-HiveMQ Cloud receives messages from:
-- Mobile geofencing
-- PIR sensor
-- Test scripts
-
-Node-RED subscribes to relevant topics and routes messages to GPIO and LCD logic. Note down the credentials you have set to access the broker.
+![LED soldering example](images/LEDs_soldering.JPEG)
+*LED soldering*
 
 ---
 
@@ -245,29 +225,34 @@ Create a new MQTT broker configuration:
 1. Subscribe to `python/mqtt`
 2. Parse location payloads (`work`, `university`)
 3. Map each location to a GPIO output
-4. Activate LED mapped location is received
-5. Override other LEDs by sending 0 signal to ensure only one LED is ON at a time
+4. Activate the LED for the location once a message is received
+5. Override other LEDs by sending 0 (OFF/LOW) signal to ensure only one LED is ON at a time
 
 #### Flow 2 – Home Presence
 1. Subscribe to `home/presence`
 2. Activate home LED once a message is received
-3. Override other LEDs by sending 0 signal to ensure only one LED is ON at a time
+3. Override other LEDs by sending 0 (OFF/LOW) signal to ensure only one LED is ON at a time
 4. Publish message 'OK' to `home/presence/ack` to act as a health check
 
 --- 
 
 ### LCD and Weather Integration
 
-![LCD setup](images/LCD_board.JPEG)
-
 - Install `node-red-contrib-i2clcd`
 - LCD layout:
   - **Line 1:** Availability message
   - **Line 2:** Weather + temperature
+
 - Use an HTTP Request node to call OpenWeather API
   - ```
-    https://api.openweathermap.org/data/2.5/weather?q=YOUR_CITY,YOUR_COUNTRY&units=metric&appid=YOUR_API_KEY
+    https://api.openweathermap.org/data/2.5/weather?q=
+    YOUR_CITY,YOUR_COUNTRY&units=metric&appid=YOUR_API_KEY
     ```
+- With each LED logic, connect an LCD node in the series and use the below code to format the data from the API, as well as your custom message
+- The LCD wiring is simple, check the datasheet for instructions for your model and directly connect them to the Raspberry PI using jumper cables
+- For ease of wiring the jumper cables to the outside of the board I made a hole on the side of the map that I wanted the LCD to sit on
+- Pass the cables through and cable tie them for neatness (also helps them not disconnect)
+
 
 #### LCD Function Code
 
@@ -291,9 +276,11 @@ Create a new MQTT broker configuration:
     return msg;
 ```
 
----
-
 ![Node-RED flow](images/node_red_flow1.png)
+*Example Node-RED flow*
+
+![LCD setup](images/LCD_board.JPEG)
+*LCD mounted and wired*
 
 ---
 
@@ -303,9 +290,12 @@ With your second Pi:
 
 #### Wiring
 
-- **VCC →** 5V  
-- **GND →** Ground  
-- **OUT →** GPIO input pin  
+- VCC → 5V
+- GND → Ground
+- OUT → GPIO input
+
+![PIR sensor wiring](images/PIR_sensor_setup.JPEG)
+*PIR sensor setup*
 
 #### Node-RED Logic
 
@@ -318,8 +308,6 @@ With your second Pi:
 - Subscribe to `home/presence/ack`
 - Wire a simple LED circuit that lights up once the Pi has received acknowledgement that motion sensor triggered the LED of the IoT map
   
-![PIR motion sensor](images/PIR_sensor_setup.JPEG)
-
 ---
 
 ## Mechanical Climbing Rope Mechanism
@@ -378,10 +366,10 @@ This subsystem adds a physical, kinetic element to the project by simulating a c
 ---
 
 ![Climbing prototype](images/climbing_prototype.JPEG)
+*Mechanical climbing mechanism - testing phase*
 
----
-
-![Climbing Batman](images/climbing_batman.jpg)
+![LEGO climber](images/climbing_batman.jpg)
+*Climber in motion - final*
 
 ---
 
